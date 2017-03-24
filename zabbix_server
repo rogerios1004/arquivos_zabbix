@@ -1,7 +1,14 @@
 #!/bin/sh
-##
-Zabbix daemon start/stop script.
-##
+#
+###BEGIN INIT INFO
+#Provides: zabbix_server
+#Required-Start: $network $remote_fs $syslog
+#Required-Stop: $network $remote_fs $syslog
+#Default-Start: 2 3 4 5
+#Default-Stop: 0 6
+#Short-Description: Zabbix server daemon
+##END INIT INFO
+#
 NAME=zabbix_server
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/home/zabbix/bin
 DAEMON=/usr/local/sbin/${NAME}
@@ -10,25 +17,25 @@ PID=/tmp/$NAME.pid
 test -f $DAEMON || exit 0
 set -e
 case "$1" in
-start)
-echo "Starting $DESC: $NAME"
-start-stop-daemon --oknodo --start --pidfile $PID \
---exec $DAEMON
-;;
-stop)
-echo "Stopping $DESC: $NAME"
-start-stop-daemon --oknodo --stop --pidfile $PID \
---exec $DAEMON
-;;
-restart|force-reload)
-$0 stop
-sleep 3
-$0 start
-;;
-*)
+ start)
+ echo "Starting $DESC: $NAME"
+ start-stop-daemon --oknodo --start --pidfile $PID \
+ --exec $DAEMON
+ ;;
+ stop)
+ echo "Stopping $DESC: $NAME"
+ start-stop-daemon --oknodo --stop --pidfile $PID \
+ --exec $DAEMON
+ ;;
+ restart|force-reload)
+ $0 stop
+ sleep 3
+ $0 start
+ ;;
+ *)
 N=/etc/init.d/$NAME
-echo "Usage: $N {start|stop|restart|force-reload}" >&2
-exit 1
-;;
+ echo "Usage: $N {start|stop|restart|force-reload}" >&2
+ exit 1
+ ;;
 esac
 exit 0
