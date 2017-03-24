@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-###BEGIN INIT INFO
+###BEGIN INIT INF
 #Provides: zabbix_agentd
 #Required-Start: $network $syslog $remote_fs
 #Required-Stop: $network $syslog $remote_fs
